@@ -1,5 +1,6 @@
 ---@diagnostic disable: inject-field
 local OrgAgendaTodosType = require('orgmode.agenda.types.todo')
+local config = require('orgmode.config')
 local Input = require('orgmode.ui.input')
 
 ---@class OrgAgendaSearchTypeOpts:OrgAgendaTodosTypeOpts
@@ -13,7 +14,8 @@ OrgAgendaSearchType.__index = OrgAgendaSearchType
 ---@param opts OrgAgendaSearchTypeOpts
 function OrgAgendaSearchType:new(opts)
   opts.todo_only = false
-  opts.subheader = 'Press "r" to update search'
+  local agenda_redo_key = config.mappings.agenda.org_agenda_redo
+  opts.subheader = string.format('Press "%s" to update search', agenda_redo_key)
   setmetatable(self, { __index = OrgAgendaTodosType })
   local obj = OrgAgendaTodosType:new(opts)
   setmetatable(obj, self)

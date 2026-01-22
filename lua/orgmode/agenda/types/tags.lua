@@ -26,7 +26,8 @@ function OrgAgendaTagsType:new(opts)
   opts.todo_only = opts.todo_only or false
   opts.sorting_strategy = opts.sorting_strategy or vim.tbl_get(config.org_agenda_sorting_strategy, 'tags') or {}
   if not opts.id then
-    opts.subheader = 'Press "r" to update search'
+    local agenda_redo_key = config.mappings.agenda.org_agenda_redo
+    opts.subheader = string.format('Press "%s" to update search', agenda_redo_key)
   end
   setmetatable(self, { __index = OrgAgendaTodosType })
   local obj = OrgAgendaTodosType:new(opts)
